@@ -13,6 +13,9 @@ public class requestUser {
     public void getUsers(){
         String url ="https://reqres.in/api/users";
         responseUser = api.get(url);
-
+    }
+    public void getSingleUser(String id){
+        String url ="https://reqres.in/api/users/"+id;
+        responseUser = api.get(url);
     }
 }

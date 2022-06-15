@@ -1,5 +1,6 @@
 package definitions;
 
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -10,6 +11,7 @@ import org.junit.Assert;
 import support.requestUser;
 
 import java.util.List;
+import java.util.Map;
 
 public class servicioUserDefinition {
     requestUser rUser;
@@ -41,5 +43,28 @@ public class servicioUserDefinition {
         List<String> listado = json.with(body.asString()).get("data");
         int cantidad = json.getInt("per_page");
         Assert.assertEquals(cantidad,listado.size());
+    }
+
+    @Given("listar usuarios con id {string}")
+    public void listarUsuariosConId(String id) {
+        rUser.getSingleUser(id);
+    }
+
+    @When("mostrar informacion de usuario")
+    public void mostrarInformacionDeUsuario() {
+        mostrarElListadoDeUsuarios();
+    }
+
+    @Then("validar información de la consulta")
+    public void validarInformaciónDeLaConsulta(DataTable user) {
+        ResponseBody body = requestUser.responseUser;
+        JsonPath json = new JsonPath(body.asString()).setRootPath("data");
+        List<Map<String,String>> data = user.asMaps(String.class,String.class);
+        for (int i=0; i<data.size();i++){
+            Assert.assertEquals(data.get(i).get("email"),json.getString("email"));
+            Assert.assertEquals(data.get(i).get("nombre"),json.getString("first_name"));
+            Assert.assertEquals(data.get(i).get("apellido"),json.getString("last_name"));
+        }
+
     }
 }
