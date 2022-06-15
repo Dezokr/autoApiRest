@@ -5,3 +5,4 @@
       Given listar usuarios
       When mostrar el listado de usuarios
       And validar codigo de respuesta "200"
+      Then validar numero de registros
