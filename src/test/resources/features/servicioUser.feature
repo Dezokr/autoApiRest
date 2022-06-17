@@ -14,3 +14,8 @@
       Then validar información de la consulta
         | email                    | nombre  | apellido |
         | charles.morris@reqres.in | Charles | Morris   |
+      
+      Scenario: Usuario no registrado
+        Given listar usuarios con id "50"
+        Then validar codigo de respuesta "404"
+        
