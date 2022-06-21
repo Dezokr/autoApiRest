@@ -97,7 +97,7 @@ public class servicioUserDefinition {
         List<Map<String,String>> data = dt.asMaps(String.class,String.class);
         for (int i=0; i<data.size();i++){
             rUser.registrarUsuario(data.get(i).get("correo"),data.get(i).get("clave"));
-            mostrarDatosRegistrados();
+            mostrarElListadoDeUsuarios();
         }
     }
 
@@ -106,6 +106,31 @@ public class servicioUserDefinition {
         mostrarElListadoDeUsuarios();
     }
 
+    @Given("el usuario esta registrado")
+    public void elUsuarioEstaRegistrado() {
+
+    }
+
+    @When("actualizar datos de usuario")
+    public void actualizarDatosDeUsuario(DataTable dt) {
+        List<Map<String,String>> data = dt.asMaps(String.class,String.class);
+        for (int i=0; i<data.size();i++){
+            rUser.updateUser(data.get(i).get("id"),data.get(i).get("nombre"),data.get(i).get("puesto"));
+            validarCodigoDeRespuesta(data.get(i).get("codigo"));
+            mostrarElListadoDeUsuarios();
+        }
+
+    }
+
+    @When("actualizar datos de usuario usando patch")
+    public void actualizarDatosDeUsuarioUsandoPatch(DataTable dt) {
+        List<Map<String,String>> data = dt.asMaps(String.class,String.class);
+        for (int i=0; i<data.size();i++){
+            rUser.patchUser(data.get(i).get("id"),data.get(i).get("nombre"),data.get(i).get("puesto"));
+            validarCodigoDeRespuesta(data.get(i).get("codigo"));
+            mostrarElListadoDeUsuarios();
+        }
+    }
 }
 
 

@@ -15,4 +15,14 @@ public class apihelper {
         Response response = given().body(payload).contentType("application/json").post(url);
         return response;
     }
+
+    public Response put(String url, Object payload){
+        Response response = given().body(payload).contentType("application/json").put(url);
+        return response;
+    }
+
+    public Response patch(String url, Object payload){
+        Response response = given().body(payload).contentType("application/json").patch(url);
+        return response;
+    }
 }

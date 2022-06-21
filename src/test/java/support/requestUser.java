@@ -23,8 +23,8 @@ public class requestUser {
     }
     public void createUser(String nombre, String puesto){
         String url = "https://reqres.in/api/users";
-        String payload = "{\"name\": \""+nombre+"\", \"job\": \""+puesto+"\"}";
-        //payload = new payloadUser(nombre,puesto);
+        //String payload = "{\"name\": \""+nombre+"\", \"job\": \""+puesto+"\"}";
+        payload = new payloadUser(nombre,puesto);
         responseUser = api.post(url,payload);
     }
 
@@ -32,6 +32,17 @@ public class requestUser {
         String url = "https://reqres.in/api/register";
         payloadR = new payloadRegister(correo,clave);
         responseUser = api.post(url,payloadR);
+    }
 
+    public void updateUser(String id, String nombre, String puesto){
+        String url ="https://reqres.in/api/users/"+id;
+        payload = new payloadUser(nombre,puesto);
+        responseUser = api.put(url,payload);
+    }
+
+    public void patchUser(String id, String nombre, String puesto){
+        String url ="https://reqres.in/api/users/"+id;
+        String payload = "{\"job\": \""+puesto+"\"}";
+        responseUser = api.patch(url,payload);
     }
 }
