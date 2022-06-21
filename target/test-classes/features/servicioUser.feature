@@ -28,4 +28,11 @@
           | Mario  | PO     | 201    |
         Then validar codigo de respuesta "201"
         And mostrar datos del registro
+
+      Scenario: Registro de datos exitoso
+        Given que no existe usuario
+        When registrar usuario
+          | correo         | clave  |
+          | eve.holt@reqres.in | pistol |
+        Then mostrar datos registrados
         

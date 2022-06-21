@@ -87,4 +87,25 @@ public class servicioUserDefinition {
     public void mostrarDatosDelRegistro() {
         mostrarElListadoDeUsuarios();
     }
+
+
+    @Given("que no existe usuario")
+    public void queNoExisteUsuario() {
+    }
+    @When("registrar usuario")
+    public void registrarUsuario(DataTable dt) {
+        List<Map<String,String>> data = dt.asMaps(String.class,String.class);
+        for (int i=0; i<data.size();i++){
+            rUser.registrarUsuario(data.get(i).get("correo"),data.get(i).get("clave"));
+            mostrarDatosRegistrados();
+        }
+    }
+
+    @Then("mostrar datos registrados")
+    public void mostrarDatosRegistrados() {
+        mostrarElListadoDeUsuarios();
+    }
+
 }
+
+
